@@ -9,23 +9,33 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: #6ab023; /* ব্যাকগ্রাউন্ড ছবি লোড না হলে এই রঙ দেখাবে */
+    background-color: #6ab023;
 }
 
 .splash-screen {
     width: 100%;
     height: 100vh;
-    /* ছবির মতো সবুজ পলিগন ব্যাকগ্রাউন্ড */
-    background-image: 
-        linear-gradient(135deg, rgba(164, 214, 94, 0.85) 0%, rgba(92, 168, 35, 0.9) 50%, rgba(46, 125, 20, 0.95) 100%),
-        repeating-linear-gradient(60deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 40px, transparent 40px, transparent 80px),
-        repeating-linear-gradient(-60deg, rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 40px, transparent 40px, transparent 80px);
+    /* আপনার আপলোড করা ছবির রেফারেন্স (ফাইলের নাম হুবহু 'new rio.jpeg' হতে হবে) */
+    background-image: url('new rio.jpeg');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+}
+
+/* ছবির নিচের স্থির digibanking লেখাটি ঢেকে দেওয়ার জন্য সবুজ পলিগন প্যাচ */
+.splash-screen::after {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    width: 280px;
+    height: 90px;
+    background: linear-gradient(135deg, #6cc027 0%, #58aa1e 100%);
+    border-radius: 10px;
+    z-index: 1;
 }
 
 .logo-container {
@@ -34,40 +44,37 @@ body, html {
     flex-direction: column;
     align-items: center;
     position: relative;
-    /* ব্যাংকের নামটি স্ক্রিনের মাঝখান থেকে একটু ওপরে রাখার জন্য */
-    transform: translateY(-60px); 
+    z-index: 2;
+    /* ছবির 'Standard Islami Bank PLC.' লেখাটির ঠিক নিচে অ্যালাইন করার জন্য */
+    transform: translateY(-95px); 
 }
 
+/* ছবির আসল ব্যাংক নামটি যেহেতু ব্যাকগ্রাউন্ডেই আছে, তাই আলাদা HTML টেক্সট লুকানো হলো */
 .bank-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 21px;
-    font-weight: 700;
-    color: #053b16;
-    letter-spacing: -0.3px;
+    visibility: hidden;
+    height: 40px;
 }
 
-/* Digibanking বক্সের ডিজাইন ও অ্যানিমেশন */
+/* নিচ থেকে উপরে উঠে আসা আসল অ্যানিমেটেড digibanking বক্স */
 .digibanking-box {
-    background-color: #065f27;
-    padding: 12px 28px;
-    border-radius: 6px;
+    background-color: #045b25;
+    padding: 13px 30px;
+    border-radius: 7px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
     display: flex;
     align-items: center;
     justify-content: center;
     
-    /* শুরুর অবস্থান: স্ক্রিনের নিচের দিকে (লাল মার্ক করা জায়গায়) */
-    transform: translateY(230px);
+    /* শুরুর অবস্থান: নিচে (ছবির digibanking বক্সের জায়গায়) */
+    transform: translateY(255px);
     transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* যখন অ্যানিমেশন চালু হবে (নীল মার্ক করা জায়গায় পৌঁছাবে) */
+/* অ্যানিমেশন শেষে গন্তব্য: Standard Islami Bank PLC. লেখার ঠিক নিচে */
 .digibanking-box.move-up {
-    transform: translateY(22px); /* Standard Bank লেখার ঠিক নিচে */
+    transform: translateY(15px);
 }
 
 /* বক্সের ডান কোণায় হলুদ ত্রিভুজ */
